@@ -13,6 +13,9 @@ class Game:
         self.clock = pygame.time.Clock()
         self.fps = 60
 
+        self.bg = pygame.image.load("background.jpg").convert_alpha()
+        self.bg = pygame.transform.scale(self.bg, (1600, 1000))
+
         pygame.font.init()
         self.font = pygame.font.SysFont("Arial", 30)
         self.large_font = pygame.font.SysFont("Arial", 50)
@@ -22,14 +25,14 @@ class Game:
         self.high_score = 0
         self.score = 0
         
-        self.bird = Bird((255, 255, 0), 15)
+        self.bird = Bird((255, 255, 0), 70)
         self.pipes = []
 
         self.PIPE_SPAWN = pygame.USEREVENT + 1      # cusotm event PIPE_SPAWN
         pygame.time.set_timer(self.PIPE_SPAWN, 1500)
 
     def reset_game(self):
-        self.bird = Bird((255, 255, 0), 15)
+        self.bird = Bird((255, 255, 0), 70)
         self.pipes = []
         self.score = 0
         self.state = "PLAY"
@@ -74,7 +77,7 @@ class Game:
 
     def draw(self):
         self.screen.fill((113, 197, 207))
-
+        self.screen.blit(self.bg, (0, 0))
         if self.state == "START":
             start_txt = self.font.render("Press 'S' to Start!", True, (255, 255, 255))
             self.screen.blit(start_txt, (self.screen_w // 2 - 100, self.screen_h // 2))
@@ -107,4 +110,4 @@ class Game:
             self.handle_events()
             self.update()
             self.draw()
-            self.clock.tick(self.fps)
+            self.clock.tick(60)

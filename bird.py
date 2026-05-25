@@ -10,12 +10,29 @@ class Bird:
     self.g = 0.5
     self.vY = 2
 
+    #create bird
+    self.birdie = pygame.image.load("birdSprite.png").convert_alpha()
+    self.birdie = pygame.transform.scale(self.birdie, (int(size), size))
+
+    self.og_birdie = self.birdie
+
+    #rect has center at x, y
+    self.bird_rec = self.birdie.get_rect(center=(int(self.x), int(self.y)))
+    self.bird_mask = pygame.mask.from_surface(self.birdie)
+  
   def update(self):
+    #moving
     self.vY += self.g      #acc --> vel --> pos
     self.y += self.vY
 
+    #collision prep
+    self.bird_rec.center = (int(self.x), int(self.y))
+
   def jumpUp(self):
     self.vY = -10
-  
+
   def draw(self, screen):
-    pygame.draw.circle(screen, self.colour, (int(self.x), int(self.y)), self.size)
+    screen.blit(self.birdie, self.bird_rec)
+
+
+

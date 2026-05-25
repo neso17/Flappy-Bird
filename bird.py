@@ -11,7 +11,7 @@ class Bird:
     self.vY = 2
 
     #create bird
-    self.birdie = pygame.image.load("birdSprite.png").convert_alpha()
+    self.birdie = pygame.image.load("birdSprite.png").convert_alpha() #create surface object from image, convert alpha allows for transparency
     self.birdie = pygame.transform.scale(self.birdie, (int(size), size))
 
     self.og_birdie = self.birdie
@@ -25,6 +25,10 @@ class Bird:
     self.vY += self.g      #acc --> vel --> pos
     self.y += self.vY
 
+    angle = max(-90, min(30, self.vY * -3))
+    self.birdie = pygame.transform.rotate(self.og_birdie, angle)
+    self.bird_rec = self.birdie.get_rect(center=(int(self.x), int(self.y)))
+    self.bird_mask = pygame.mask.from_surface(self.birdie)
     #collision prep
     self.bird_rec.center = (int(self.x), int(self.y))
 

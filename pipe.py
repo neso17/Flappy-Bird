@@ -17,7 +17,7 @@ class Pipe:
     self.bottom_h = screen_h - self.top_h - self.gap
 
   # top mask + surface
-    self.top_image = pygame.Surface((self.w, self.top_h), pygame.SRCALPHA)
+    self.top_image = pygame.Surface((self.w, self.top_h), pygame.SRCALPHA) #new surface object to start mask on, srcalpha allows for transparencyaas
     self.top_image.fill((0, 255, 0))
     self.top_mask = pygame.mask.from_surface(self.top_image)
     self.top_rect = self.top_image.get_rect(topleft=(self.scr_w, 0))

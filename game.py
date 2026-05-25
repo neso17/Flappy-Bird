@@ -2,6 +2,7 @@ import pygame
 import sys
 from bird import Bird
 from pipe import Pipe
+from camera import CameraBG
 
 class Game:
     def __init__(self):
@@ -12,6 +13,8 @@ class Game:
         pygame.display.set_caption("Flappy Bird")
         self.clock = pygame.time.Clock()
         self.fps = 60
+
+        self.camera = CameraBG(self.screen_w, self.screen_h)
 
         self.bg = pygame.image.load("background.jpg").convert_alpha()
         self.bg = pygame.transform.scale(self.bg, (1600, 1000))
@@ -42,6 +45,7 @@ class Game:
         #event is a object- params: eventtype, pump(clear queue), exlude) returns List
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self.camera.release()
                 pygame.quit()
                 sys.exit()
 
@@ -75,9 +79,16 @@ class Game:
                 if self.score > self.high_score:
                     self.high_score = self.score
 
+    def draw_background(self):
+        frame = self.camera.get_frame()
+        if frame:
+            self.screen.blit(frame, (0, 0))
+        else:
+            self.screen.fill((113, 197, 207))
+            self.screen.blit(self.bg, (0, 0))
+
     def draw(self):
-        self.screen.fill((113, 197, 207))
-        self.screen.blit(self.bg, (0, 0))
+        self.draw_background()
         if self.state == "START":
             start_txt = self.font.render("Press 'S' to Start!", True, (255, 255, 255))
             self.screen.blit(start_txt, (self.screen_w // 2 - 100, self.screen_h // 2))

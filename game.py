@@ -28,14 +28,14 @@ class Game:
         self.high_score = 0
         self.score = 0
         
-        self.bird = Bird((255, 255, 0), 70)
+        self.bird = Bird((255, 255, 0), 55)
         self.pipes = []
 
         self.PIPE_SPAWN = pygame.USEREVENT + 1      # cusotm event PIPE_SPAWN
-        pygame.time.set_timer(self.PIPE_SPAWN, 1500)
+        pygame.time.set_timer(self.PIPE_SPAWN, 2500)
 
     def reset_game(self):
-        self.bird = Bird((255, 255, 0), 70)
+        self.bird = Bird((255, 255, 0), 55)
         self.pipes = []
         self.score = 0
         self.state = "PLAY"
@@ -80,9 +80,9 @@ class Game:
                     self.high_score = self.score
 
     def draw_background(self):
-        frame = self.camera.get_frame()
-        if frame:
-            self.screen.blit(frame, (0, 0))
+        BG_image = self.camera.get_frame()
+        if BG_image is not None:
+            self.screen.blit(BG_image, (0, 0))
         else:
             self.screen.fill((113, 197, 207))
             self.screen.blit(self.bg, (0, 0))

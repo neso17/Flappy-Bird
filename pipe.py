@@ -7,7 +7,7 @@ class Pipe:
     self.scr_h = screen_h
     self.w = 80
     self.gap = 220
-    self.speed = 5
+    self.speed = 3
     self.passed = False
 
     min_h = 40
